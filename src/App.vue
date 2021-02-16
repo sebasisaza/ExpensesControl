@@ -23,6 +23,19 @@
   font-weight: bolder;
 }
 
+#app{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.2fr 0.2fr 1.6fr;
+  grid-template-areas: 'header'
+                       'nav'
+                       'content';
+}
+
+.content{
+  grid-area: content;
+}
+
 a:link{
   text-decoration: none;
   color: #101A26;
@@ -64,12 +77,11 @@ nav a.router-link-exact-active {
     border: 2px solid #ccc;
     border-radius: 15px;
     outline: none;
-    padding: 2px 10px 2px 10px;
+    padding: 2px 15px 2px 15px;
 }
 .table{
     width: 100%;
     border-collapse: collapse;
-    min-width: 400px;
 }
 
 .table thead tr {
@@ -108,6 +120,25 @@ nav a.router-link-exact-active {
 .btn-table:hover{
   background: #a03838;
   cursor: pointer;
+}
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+    nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr, 1fr;
+      grid-template-areas: 'router-link router-link'
+                           'router-link router-link';
+      align-items: center;
+      max-width: 320px;
+    }
+    input{
+      width: 110px;
+    }
 }
 
 </style>
