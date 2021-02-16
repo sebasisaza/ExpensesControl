@@ -66,5 +66,48 @@ nav a.router-link-exact-active {
     outline: none;
     padding: 2px 10px 2px 10px;
 }
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 400px;
+}
+
+.table thead tr {
+    background-color: #ccc;
+    text-align: left;
+}
+.table th,
+.table td {
+    padding: 5px 10px;
+}
+
+.table tbody tr:hover{
+    background: #f8f8f8;
+}
+.btn-main{
+    border: none;
+    width: 150px;
+    height: 40px;
+    border-radius: 15px;
+    background: #101A26;
+    color: white;
+    margin-bottom: 10px;
+}
+.btn-main:hover{
+  background: #335379;
+  cursor: pointer;
+}
+.btn-table{
+    border: none;
+    width: 80px;
+    height: 25px;
+    border-radius: 8px;
+    background: #d32f2f;
+    color: white;
+}
+.btn-table:hover{
+  background: #a03838;
+  cursor: pointer;
+}
 
 </style>

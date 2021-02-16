@@ -1,7 +1,7 @@
 <template>
-    <div class="general">
+    <div class="content">
         <h1 class="tittle">Informacíon General</h1>
-        <div class="center">
+        <div class="general">
             <label>Saldo Inicial</label>
             <input type="text" class="input">
             <label>Fecha</label>
@@ -24,11 +24,11 @@ export default {
 </script>
 <style>
 
-.general{
+.content{
     display: grid;
     grid-template-columns: 1fr;
 }
-.center {
+.general {
     display: grid;
     gap: 10px;
     grid-template-columns: 1fr 1fr;
