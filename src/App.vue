@@ -6,7 +6,7 @@
     <nav>
       <router-link to="/">General</router-link>
       <router-link to="/expense-control">Control de Gastos</router-link>
-      <router-link to="/day">Cobros día</router-link>
+      <router-link to="/day-collection">Cobros día</router-link>
       <router-link to="/customers">Clientes</router-link>
     </nav>
     <router-view/>
@@ -36,7 +36,7 @@
   grid-area: content;
 }
 
-a:link{
+nav a:link{
   text-decoration: none;
   color: #101A26;
 }
@@ -72,12 +72,39 @@ nav a:visited{
 nav a.router-link-exact-active {
   color: #fff;
 }
+.content{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.form {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    align-self: center;
+    justify-self: center;
+}
+.tittle{
+    text-align: center;
+    padding: 10px 0 10px 0;
+}
 
 .input{
     border: 2px solid #ccc;
     border-radius: 15px;
     outline: none;
     padding: 2px 15px 2px 15px;
+}
+.input-search{
+  border: 2px solid #ccc;
+  border-radius: 15px;
+  outline: none;
+  padding: 2px 15px 2px 15px;
+  width: 250px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.div-table{
+    padding: 0 10% 0 10%;
 }
 .table{
     width: 100%;
@@ -119,6 +146,19 @@ nav a.router-link-exact-active {
 }
 .btn-table:hover{
   background: #a03838;
+  cursor: pointer;
+}
+.btn-info{
+    border: none;
+    width: 80px;
+    height: 25px;
+    border-radius: 8px;
+    background: #2196F3;
+    color: white;
+    text-decoration: none;
+}
+.btn-info:hover{
+  background: #1976D2;
   cursor: pointer;
 }
 

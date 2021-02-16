@@ -1,15 +1,15 @@
 <template>
   <div>
-    <ExpenseControl />
+    <DetailClient />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import ExpenseControl from '@/components/ExpenseControl';
+import DetailClient from '@/components/DetailClient';
 export default {
   components: {
-    ExpenseControl
+    DetailClient
   }
 }
 </script>

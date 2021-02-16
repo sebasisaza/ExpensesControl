@@ -1,49 +1,48 @@
 <template>
     <div class="content">
-        <h1 class="tittle">Control de Gastos</h1>
+        <h1 class="tittle">Detalle de: <span class="client">Felipe Agudelo</span></h1>
         <div class="form">
-            <label>Concepto</label>
-            <input type="text" class="input">
-            <label>Valor</label>
-            <input type="text" class="input">
-            <label>Fecha</label>
-            <input type="date" class="input">
+            <label>Tasa</label>
+            <input type="text" class="input" disabled>
+            <label>Teléfono</label>
+            <input type="text" class="input" disabled>
+            <label>Valor Prestado</label>
+            <input type="text" class="input" disabled>
+            <label>Valor Pagado</label>
+            <input type="text" class="input" disabled>
+            <label>Valor Adeudado</label>
+            <input type="text" class="input" disabled>
         </div>
         <div class="div-table">
-            <button class="btn-main">Agregar Gasto</button>
+            <button class="btn-main">Agregar Pago</button>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Concepto</th>
+                        <th>Pago No</th>
                         <th>Valor</th>
-                        <th>Fecha</th>
-                        <th></th>
+                        <th>Fecha de Pago</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Gasolina</td>
+                        <td>1</td>
                         <td>20.000</td>
                         <td>16/02/2021</td>
-                        <td><button class="btn-table">Borrar</button></td>
                     </tr>
                     <tr>
-                        <td>Gasolina</td>
+                        <td>2</td>
                         <td>20.000</td>
                         <td>16/02/2021</td>
-                        <td><button class="btn-table">Borrar</button></td>
                     </tr>
                     <tr>
-                        <td>Gasolina</td>
+                        <td>3</td>
                         <td>20.000</td>
                         <td>16/02/2021</td>
-                        <td><button class="btn-table">Borrar</button></td>
                     </tr>
                     <tr>
-                        <td>Gasolina</td>
+                        <td>4</td>
                         <td>20.000</td>
                         <td>16/02/2021</td>
-                        <td><button class="btn-table">Borrar</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -56,5 +55,7 @@ export default {
 }
 </script>
 <style>
-
+.client{
+    font-size: 20px;
+}
 </style>
