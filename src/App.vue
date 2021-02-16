@@ -19,6 +19,8 @@
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: bolder;
 }
 
 a:link{
@@ -57,4 +59,12 @@ nav a:visited{
 nav a.router-link-exact-active {
   color: #fff;
 }
+
+.input{
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    outline: none;
+    padding: 2px 10px 2px 10px;
+}
+
 </style>
