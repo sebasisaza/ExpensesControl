@@ -4,6 +4,7 @@ import General from '../views/General.vue'
 import ExpenseControl from '../views/ExpenseControl.vue'
 import DayCollection from '../views/DayCollection.vue'
 import DetailClient from '../views/DetailClient.vue'
+import Clients from '../views/Clients.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/detail-client/:id_client',
     name: 'DetailClient',
     component: DetailClient
+  },
+  {
+    path: '/clients',
+    name: 'Clients',
+    component: Clients
   }
 ]
 

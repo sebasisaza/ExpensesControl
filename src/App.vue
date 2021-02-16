@@ -7,7 +7,7 @@
       <router-link to="/">General</router-link>
       <router-link to="/expense-control">Control de Gastos</router-link>
       <router-link to="/day-collection">Cobros día</router-link>
-      <router-link to="/customers">Clientes</router-link>
+      <router-link to="/clients">Clientes</router-link>
     </nav>
     <router-view/>
   </div>
@@ -122,6 +122,9 @@ nav a.router-link-exact-active {
 
 .table tbody tr:hover{
     background: #f8f8f8;
+}
+button:focus{
+  outline: none;
 }
 .btn-main{
     border: none;
