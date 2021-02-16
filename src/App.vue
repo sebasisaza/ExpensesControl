@@ -22,7 +22,6 @@
   font-size: 16px;
   font-weight: bolder;
 }
-
 #app{
   display: grid;
   grid-template-columns: 1fr;
@@ -31,16 +30,13 @@
                        'nav'
                        'content';
 }
-
 .content{
   grid-area: content;
 }
-
 nav a:link{
   text-decoration: none;
   color: #101A26;
 }
-
 header{
   background: #101A26;
   color: #fff;
@@ -49,7 +45,6 @@ header{
   justify-content: center;
   padding: 1rem;
 }
-
 nav {
   padding: 0.3rem;
   background: #ccc;
@@ -57,18 +52,15 @@ nav {
   display: flex;
   justify-content: space-around;
 }
-
 nav a{
   padding: 10px;
   text-decoration: none;
   font-weight: bolder;
 }
-
 nav a:visited{
   text-decoration: none;
   color: #101A26;
 }
-
 nav a.router-link-exact-active {
   color: #fff;
 }
@@ -87,7 +79,6 @@ nav a.router-link-exact-active {
     text-align: center;
     padding: 10px 0 10px 0;
 }
-
 .input{
     border: 2px solid #ccc;
     border-radius: 15px;
@@ -110,7 +101,6 @@ nav a.router-link-exact-active {
     width: 100%;
     border-collapse: collapse;
 }
-
 .table thead tr {
     background-color: #ccc;
     text-align: left;

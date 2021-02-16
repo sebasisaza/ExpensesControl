@@ -7,13 +7,13 @@
             <label>Fecha</label>
             <input type="date" class="input">
             <label>Utilidades Mes</label>
-            <input type="text" class="input">
+            <input type="text" class="input" disabled>
             <label>Gastos Mes</label>
-            <input type="text" class="input">
+            <input type="text" class="input" disabled>
             <label>Cartera Mes</label>
-            <input type="text" class="input">
+            <input type="text" class="input" disabled>
             <label>Cartera Total</label>
-            <input type="text" class="input">
+            <input type="text" class="input" disabled>
         </div>
     </div>
 </template>
