@@ -3,7 +3,7 @@
         <h1 class="tittle">Informacíon General</h1>
         <div class="form">
             <label>Saldo Inicial</label>
-            <input type="text" class="input">
+            <input type="number" class="input">
             <label>Fecha</label>
             <input type="date" class="input">
             <label>Utilidades Mes</label>

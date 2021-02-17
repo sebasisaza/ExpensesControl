@@ -44,22 +44,56 @@
         <div class="modal hidden">
             <div class="top-modal">
                 <h1 class="tittle">Agregar Cliente</h1>
-                <button class="close-modal">&times;</button>
+                <button class="close-modal" v-on:click="closeModal()">&times;</button>
             </div>
             <div class="form">
                 <label>Nombre</label>
                 <input type="text" class="input">
                 <label>Cédula</label>
-                <input type="text" class="input">
+                <input type="number" class="input">
                 <label>Teléfono</label>
-                <input type="text" class="input">
+                <input type="number" class="input">
                 <label>Préstamo</label>
-                <input type="text" class="input">
+                <input type="number" class="input">
                 <label>Plazo</label>
-                <input type="text" class="input">
+                <input type="number" class="input">
                 <label>Interés</label>
-                <input type="text" class="input">
+                <input type="number" class="input">
                 <label>Pago</label>
+                <div class="radios">
+                    <div class="pretty p-icon p-round">
+                        <input type="radio" name="icon_solid" />
+                        <div class="state p-primary">
+                            <i class="icon mdi mdi-check"></i>
+                            <label>Diario</label>
+                        </div>
+                    </div>
+                    <div class="pretty p-icon p-round">
+                        <input type="radio" name="icon_solid" />
+                        <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label>Semanal</label>
+                        </div>
+                    </div>
+                    <div class="pretty p-icon p-round">
+                        <input type="radio" name="icon_solid" />
+                        <div class="state p-info">
+                            <i class="icon mdi mdi-check"></i>
+                            <label>Quincenal</label>
+                        </div>
+                    </div>
+                    <div class="pretty p-icon p-round">
+                        <input type="radio" name="icon_solid" />
+                        <div class="state p-info">
+                            <i class="icon mdi mdi-check"></i>
+                            <label>Mensual</label>
+                        </div>
+                    </div>
+                </div>
+                <label>Sumar día cobro</label>
+                <input type="number" class="input">
+                <button class="btn-cancel" v-on:click="closeModal()">Cancelar</button>
+                <button class="btn-main">Agregar</button>
             </div>
         </div>
         <div class="overlay hidden"></div>
@@ -79,6 +113,12 @@ export default {
             const overlay = document.querySelector('.overlay');
             modal.classList.remove('hidden');
             overlay.classList.remove('hidden');
+        },
+        closeModal(){
+            const modal = document.querySelector('.modal');
+            const overlay = document.querySelector('.overlay');
+            modal.classList.add('hidden');
+            overlay.classList.add('hidden');
         }
     }
 }
@@ -89,7 +129,7 @@ export default {
 }
 .modal {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
@@ -121,5 +161,21 @@ export default {
     cursor: pointer;
     border: none;
     background: none;
+}
+.radios{
+    display: flex;
+    justify-content: space-around;
+}
+.btn-cancel{
+    border: none;
+    width: 150px;
+    height: 40px;
+    border-radius: 15px;
+    background: #d32f2f;
+    color: white;
+}
+.btn-cancel:hover{
+  background: #a03838;
+  cursor: pointer;
 }
 </style>

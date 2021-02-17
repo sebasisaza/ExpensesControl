@@ -14,7 +14,7 @@
             <input type="text" class="input" disabled>
         </div>
         <div class="div-table">
-            <button class="btn-main">Agregar Pago</button>
+            <button class="btn-main" v-on:click="showModal()">Agregar Pago</button>
             <table class="table">
                 <thead>
                     <tr>
@@ -47,11 +47,46 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="modal hidden">
+            <div class="top-modal">
+                <h1 class="tittle">Agregar Pago</h1>
+                <button class="close-modal" v-on:click="closeModal()">&times;</button>
+            </div>
+            <div class="form">
+                <label>Valor</label>
+                <input type="number" class="input">
+                <label>Fecha</label>
+                <input type="date" class="input">
+                <button class="btn-cancel" v-on:click="closeModal()">Cancelar</button>
+                <button class="btn-main">Agregar</button>
+            </div>
+        </div>
+        <div class="overlay hidden"></div>
+        
     </div>
 </template>
 <script>
 export default {
-    
+    data: function () {
+        return {
+            count: 0
+        }
+    },
+    methods:{
+        showModal(){
+            const modal = document.querySelector('.modal');
+            const overlay = document.querySelector('.overlay');
+            modal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+        },
+        closeModal(){
+            const modal = document.querySelector('.modal');
+            const overlay = document.querySelector('.overlay');
+            modal.classList.add('hidden');
+            overlay.classList.add('hidden');
+        }
+    }
 }
 </script>
 <style>

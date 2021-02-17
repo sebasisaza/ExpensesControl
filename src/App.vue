@@ -129,7 +129,7 @@ button:focus{
   background: #335379;
   cursor: pointer;
 }
-.btn-table{
+.btn-danger{
     border: none;
     width: 80px;
     height: 25px;

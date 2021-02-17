@@ -22,7 +22,7 @@
                         <td>16/02/2021</td>
                         <td>16/02/2021</td>
                         <td>16/02/2021</td>
-                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Info</button></router-link></td>
+                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Detalle</button></router-link></td>
                     </tr>
                     <tr>
                         <td>Gasolina</td>
@@ -30,7 +30,7 @@
                         <td>16/02/2021</td>
                         <td>16/02/2021</td>
                         <td>16/02/2021</td>
-                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Info</button></router-link></td>
+                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Detalle</button></router-link></td>
                     </tr>
                     <tr>
                         <td>Gasolina</td>
@@ -38,7 +38,7 @@
                         <td>16/02/2021</td>
                         <td>16/02/2021</td>
                         <td>16/02/2021</td>
-                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Info</button></router-link></td>
+                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Detalle</button></router-link></td>
                     </tr>
                     <tr>
                         <td>Gasolina</td>
@@ -46,7 +46,7 @@
                         <td>16/02/2021</td>
                         <td>16/02/2021</td>
                         <td>16/02/2021</td>
-                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Info</button></router-link></td>
+                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Detalle</button></router-link></td>
                     </tr>
                 </tbody>
             </table>

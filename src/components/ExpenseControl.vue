@@ -5,7 +5,7 @@
             <label>Concepto</label>
             <input type="text" class="input">
             <label>Valor</label>
-            <input type="text" class="input">
+            <input type="number" class="input">
             <label>Fecha</label>
             <input type="date" class="input">
         </div>
@@ -25,25 +25,25 @@
                         <td>Gasolina</td>
                         <td>20.000</td>
                         <td>16/02/2021</td>
-                        <td><button class="btn-table">Borrar</button></td>
+                        <td><button class="btn-danger">Borrar</button></td>
                     </tr>
                     <tr>
                         <td>Gasolina</td>
                         <td>20.000</td>
                         <td>16/02/2021</td>
-                        <td><button class="btn-table">Borrar</button></td>
+                        <td><button class="btn-danger">Borrar</button></td>
                     </tr>
                     <tr>
                         <td>Gasolina</td>
                         <td>20.000</td>
                         <td>16/02/2021</td>
-                        <td><button class="btn-table">Borrar</button></td>
+                        <td><button class="btn-danger">Borrar</button></td>
                     </tr>
                     <tr>
                         <td>Gasolina</td>
                         <td>20.000</td>
                         <td>16/02/2021</td>
-                        <td><button class="btn-table">Borrar</button></td>
+                        <td><button class="btn-danger">Borrar</button></td>
                     </tr>
                 </tbody>
             </table>
