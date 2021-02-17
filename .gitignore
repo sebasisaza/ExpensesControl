@@ -2,6 +2,8 @@
 node_modules
 /dist
 /Doc
+/back-end/obj
+/back-end/.vs
 
 # local env files
 .env.local
