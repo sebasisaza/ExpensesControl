@@ -4,6 +4,7 @@ node_modules
 /Doc
 /back-end/obj
 /back-end/.vs
+/back-end/bin
 
 # local env files
 .env.local

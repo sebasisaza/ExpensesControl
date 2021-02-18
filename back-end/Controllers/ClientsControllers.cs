@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using back_end.DataAccess;
+using Microsoft.AspNetCore.Mvc;
+using back_end.Commons.Entities;
 
 namespace back_end.Controllers
 {
-    public class ClientsControllers
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ClientsControllers : ControllerBase
     {
-
+        [HttpGet]
+        [Route("get")]
+        public ActionResult<ResponsePage<List<Client>>> Get()
+        {
+            var res = Clients.Get();
+            return res;
+        }
     }
 }
