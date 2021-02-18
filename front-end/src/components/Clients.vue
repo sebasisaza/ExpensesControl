@@ -12,25 +12,31 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="clients.length > 0">
                     <tr v-for="(item) in clients" :key="item.id_client">
                         <td>{{item.name}}</td>
                         <td>{{item.phone}}</td>
-                        <td>{{item.payment_type}}</td>
+                        <td v-if="1 === item.payment_type">Diario</td>
+                        <td v-else-if="2 === item.payment_type">Semanal</td>
+                        <td v-else-if="3 === item.payment_type">Quincenal</td>
+                        <td v-else-if="4 === item.payment_type">Mensual</td>
                         <td><button class="btn-info">Ver</button></td>
                     </tr>
                 </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td colspan="7">No hay registros...</td>
+                    </tr>
+                </tbody>
             </table>
-            <div class="pagination">
-                <a href="#">&#8592;</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">&#8594;</a>
-            </div>
+            <paginate
+                :page-count="pages"
+                :page-range="currentPage"
+                :click-handler="functionName"
+                :prev-text="'<'"
+                :next-text="'>'"
+                :container-class="'pagination'">
+            </paginate>
         </div>
 
         <div class="modal hidden">
@@ -94,21 +100,32 @@
 </template>
 <script>
 import axios from 'axios'
+import Paginate from 'vuejs-paginate'
 export default {
+    Paginate,
     data: function () {
         return {
-            clients: []
+            clients: [],
+            pages: 0,
+            currentPage: 1
         }
     },
     created: function () {
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        this.getClients();
+    },
+    methods:{
+        getClients(){
+            const size = 1;
+            const page = this.currentPage;
+            const search = '';
+            axios.get(process.env.VUE_APP_URL+`Clients/get?size=${size}&page=${page}&search=${search}`)
             .then((response) => {
-                this.clients = response.data;
+                this.clients = response.data.data;
+                this.pages = response.data.pages;
             }).catch((e) => {
                 console.log(e);
             })
-    },
-    methods:{
+        },
         showModal(){
             const modal = document.querySelector('.modal');
             const overlay = document.querySelector('.overlay');
@@ -120,6 +137,10 @@ export default {
             const overlay = document.querySelector('.overlay');
             modal.classList.add('hidden');
             overlay.classList.add('hidden');
+        },
+        functionName(pageNum){
+            this.currentPage = pageNum;
+            this.getClients();
         }
     }
 }
@@ -182,21 +203,21 @@ export default {
 .table{
     margin-bottom: 20px;
 }
-.pagination {
+.pagination li {
   display: inline-block;
 }
-.pagination a {
+.pagination li {
   color: black;
   float: left;
   padding: 8px 16px;
   text-decoration: none;
 }
-.pagination a.active {
+.pagination li.active {
   background-color: #101A26;
   color: white;
   border-radius: 5px;
 }
-.pagination a:hover:not(.active) {
+.pagination li:hover:not(.active) {
   background-color: #ddd;
   border-radius: 5px;
 }
