@@ -13,32 +13,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Gasolina</td>
-                        <td>20.000</td>
-                        <td>16/02/2021</td>
-                        <td><button class="btn-info">Ver</button></td>
-                    </tr>
-                    <tr>
-                        <td>Gasolina</td>
-                        <td>20.000</td>
-                        <td>16/02/2021</td>
-                        <td><button class="btn-info">Ver</button></td>
-                    </tr>
-                    <tr>
-                        <td>Gasolina</td>
-                        <td>20.000</td>
-                        <td>16/02/2021</td>
-                        <td><button class="btn-info">Ver</button></td>
-                    </tr>
-                    <tr>
-                        <td>Gasolina</td>
-                        <td>20.000</td>
-                        <td>16/02/2021</td>
+                    <tr v-for="(item) in clients" :key="item.id_client">
+                        <td>{{item.name}}</td>
+                        <td>{{item.phone}}</td>
+                        <td>{{item.payment_type}}</td>
                         <td><button class="btn-info">Ver</button></td>
                     </tr>
                 </tbody>
             </table>
+            <div class="pagination">
+                <a href="#">&#8592;</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a>
+                <a href="#">&#8594;</a>
+            </div>
         </div>
 
         <div class="modal hidden">
@@ -101,11 +93,20 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data: function () {
         return {
-            count: 0
+            clients: []
         }
+    },
+    created: function () {
+        axios.get('https://jsonplaceholder.typicode.com/users')
+            .then((response) => {
+                this.clients = response.data;
+            }).catch((e) => {
+                console.log(e);
+            })
     },
     methods:{
         showModal(){
@@ -177,5 +178,26 @@ export default {
 .btn-cancel:hover{
   background: #a03838;
   cursor: pointer;
+}
+.table{
+    margin-bottom: 20px;
+}
+.pagination {
+  display: inline-block;
+}
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+.pagination a.active {
+  background-color: #101A26;
+  color: white;
+  border-radius: 5px;
+}
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
 }
 </style>
