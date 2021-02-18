@@ -32,7 +32,7 @@
             <paginate
                 :page-count="pages"
                 :page-range="currentPage"
-                :click-handler="functionName"
+                :click-handler="pageChange"
                 :prev-text="'<'"
                 :next-text="'>'"
                 :container-class="'pagination'">
@@ -115,7 +115,7 @@ export default {
     },
     methods:{
         getClients(){
-            const size = 1;
+            const size = 10;
             const page = this.currentPage;
             const search = '';
             axios.get(process.env.VUE_APP_URL+`Clients/get?size=${size}&page=${page}&search=${search}`)
@@ -138,7 +138,7 @@ export default {
             modal.classList.add('hidden');
             overlay.classList.add('hidden');
         },
-        functionName(pageNum){
+        pageChange(pageNum){
             this.currentPage = pageNum;
             this.getClients();
         }
@@ -206,8 +206,7 @@ export default {
 .pagination li {
   display: inline-block;
 }
-.pagination li {
-  color: black;
+.pagination li a {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
