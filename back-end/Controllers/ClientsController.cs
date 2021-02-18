@@ -12,9 +12,9 @@ namespace back_end.Controllers
     {
         [HttpGet]
         [Route("get")]
-        public ActionResult<ResponsePage<List<Client>>> Get()
+        public ActionResult<ResponsePage<List<Client>>> Get(int size, int page, string search)
         {
-            var res = Clients.Get();
+            var res = Clients.Get(size, page, search);
             return res;
         }
     }
