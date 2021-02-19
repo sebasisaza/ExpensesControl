@@ -103,7 +103,7 @@ namespace back_end.DataAccess
                 DateTime now = DateTime.Now;
                 var sql = $@"insert into expenses.clients (name,identification,phone,loan,time_limit,interest_rate,payment_type,days_added,created_on) values 
                                                           ('{client.name}','{client.identification}','{client.phone}',{client.loan},{client.time_limit},
-                                                            {client.interest_rate},{client.payment_type},{client.days_added},'{now.ToString(new CultureInfo("es-CO"))}');";
+                                                            {client.interest_rate},{client.payment_type},{client.days_added},'{now.ToString("yyyy/MM/dd HH:mm:ss", new CultureInfo("es-CO"))}');";
 
                 command.CommandText = sql;
                 var dr = command.ExecuteNonQuery();
@@ -152,6 +152,7 @@ namespace back_end.DataAccess
                         client.days_added = Convert.ToInt16(dr["days_added"]);
                         client.created_on = Convert.ToDateTime(dr["created_on"]);
                         res.data = client;
+                        res.success = true;
                     }
                 }
                 dr.Close();
@@ -175,8 +176,8 @@ namespace back_end.DataAccess
                 command.Connection = connection;
                 command.Transaction = transaction;
                 DateTime now = DateTime.Now;
-                var sql = $@"update expenses.clients name = '{client.name}', identification = '{client.identification}', phone = '{client.phone}', loan = {client.loan}, 
-                                                     time_limit = {client.time_limit}, interest_rate = {client.interest_rate}, payment_type = {client.payment_type}, days_added {client.days_added};";
+                var sql = $@"update expenses.clients SET name = '{client.name}', identification = '{client.identification}', phone = '{client.phone}', loan = {client.loan}, 
+                                                     time_limit = {client.time_limit}, interest_rate = {client.interest_rate}, payment_type = {client.payment_type}, days_added = {client.days_added} WHERE id_client = {client.id_client};";
 
                 command.CommandText = sql;
                 var dr = command.ExecuteNonQuery();

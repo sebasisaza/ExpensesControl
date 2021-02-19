@@ -10,6 +10,7 @@
       <router-link to="/clients">Clientes</router-link>
     </nav>
     <router-view/>
+    <notifications position="top center"/>
   </div>
 </template>
 

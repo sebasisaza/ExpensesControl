@@ -20,7 +20,7 @@
                         <td v-else-if="2 === item.payment_type">Semanal</td>
                         <td v-else-if="3 === item.payment_type">Quincenal</td>
                         <td v-else-if="4 === item.payment_type">Mensual</td>
-                        <td><button class="btn-info">Ver</button></td>
+                        <td><button class="btn-info" v-on:click="getClient(item.id_client)">Editar</button></td>
                     </tr>
                 </tbody>
                 <tbody v-else>
@@ -91,7 +91,8 @@
                 <label>Sumar día cobro</label>
                 <input v-model="client.days_added" type="number" class="input">
                 <button class="btn-cancel" v-on:click="closeModal()">Cancelar</button>
-                <button class="btn-main" v-on:click="addClient()">Agregar</button>
+                <button class="btn-main" v-if="client.name === ''" v-on:click="addClient()">Agregar</button>
+                <button class="btn-main" v-else v-on:click="updateClient()">Actualizar</button>
             </div>
         </div>
         <div class="overlay hidden"></div>
@@ -116,7 +117,7 @@ export default {
                 time_limit: '',
                 interest_rate: '',
                 payment_type: 1,
-                days_added: '',
+                days_added: ''
             }
         }
     },
@@ -147,17 +148,74 @@ export default {
             const overlay = document.querySelector('.overlay');
             modal.classList.add('hidden');
             overlay.classList.add('hidden');
+            this.cleanClient();
         },
         pageChange(pageNum){
             this.currentPage = pageNum;
             this.getClients();
         },
+        parseObjectClient(client){
+            this.client.identification = parseFloat(client.identification);
+            this.client.loan = parseFloat(client.loan);
+            this.client.time_limit = parseFloat(client.time_limit);
+            this.client.interest_rate = parseFloat(client.interest_rate);
+            this.client.days_added = parseFloat(client.days_added);
+            this.client.payment_type = parseFloat(client.payment_type);
+            return this.client;
+        },
+        cleanClient(){
+            this.client = {
+                name: '',
+                identification: '',
+                phone: '',
+                loan: '',
+                time_limit: '',
+                interest_rate: '',
+                payment_type: 1,
+                days_added: ''
+            };
+        },
         addClient(){
+            this.parseObjectClient(this.client);
             axios.post(process.env.VUE_APP_URL+'Clients/create', this.client)
             .then((response) => {
-                console.log(response);
-                // this.clients = response.data.data;
-                // this.pages = response.data.pages;
+                if(response.data.data)
+                {
+                    this.closeModal();
+                    this.cleanClient();
+                    this.$notify({
+                        title: 'Confirmación',
+                        text: response.data.messages[0]
+                    });
+                    this.getClients();
+                }
+            }).catch((e) => {
+                console.log(e);
+            })
+        },
+        getClient(id_client){
+            axios.get(process.env.VUE_APP_URL+`Clients/get/${id_client}`)
+            .then((response) => {
+                this.client = response.data.data;
+                this.showModal();
+            }).catch((e) => {
+                console.log(e);
+            })
+        },
+        updateClient(){
+            this.parseObjectClient(this.client);
+            axios.post(process.env.VUE_APP_URL+'Clients/update', this.client)
+            .then((response) => {
+                if(response.data.data)
+                {
+                    this.closeModal();
+                    this.cleanClient();
+                    this.$notify({
+                        title: 'Confirmación',
+                        text: response.data.messages[0]
+                    });
+                    this.getClients();
+                }
             }).catch((e) => {
                 console.log(e);
             })
