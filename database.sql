@@ -23,4 +23,4 @@ CREATE TABLE expenses.clients (
 	PRIMARY KEY (id_client)
 );
 
-insert into expenses.clients (name,identification,phone,loan,time_limit,interest_rate,payment_type,days_added,created_on) values ('Sebastian', '123', '316',5000000,30, 15, 1,0, CURRENT_TIMESTAMP())
+insert into expenses.clients (name,identification,phone,loan,time_limit,interest_rate,payment_type,days_added,created_on) values ('Sebastian', '123', '316',5000000,30, 15, 1,0, CURRENT_TIMESTAMP());

@@ -46,42 +46,42 @@
             </div>
             <div class="form">
                 <label>Nombre</label>
-                <input type="text" class="input">
+                <input v-model="client.name" type="text" class="input">
                 <label>Cédula</label>
-                <input type="number" class="input">
+                <input v-model="client.identification" type="number" class="input">
                 <label>Teléfono</label>
-                <input type="number" class="input">
+                <input v-model="client.phone" type="number" class="input">
                 <label>Préstamo</label>
-                <input type="number" class="input">
+                <input v-model="client.loan" type="number" class="input">
                 <label>Plazo</label>
-                <input type="number" class="input">
+                <input v-model="client.time_limit" type="number" class="input">
                 <label>Interés</label>
-                <input type="number" class="input">
+                <input v-model="client.interest_rate" type="number" class="input">
                 <label>Pago</label>
                 <div class="radios">
                     <div class="pretty p-icon p-round">
-                        <input type="radio" name="icon_solid" />
+                        <input v-model="client.payment_type" type="radio" name="icon_solid" value="1"/>
                         <div class="state p-primary">
                             <i class="icon mdi mdi-check"></i>
                             <label>Diario</label>
                         </div>
                     </div>
                     <div class="pretty p-icon p-round">
-                        <input type="radio" name="icon_solid" />
+                        <input v-model="client.payment_type" type="radio" name="icon_solid" value="2"/>
                         <div class="state p-success">
                             <i class="icon mdi mdi-check"></i>
                             <label>Semanal</label>
                         </div>
                     </div>
                     <div class="pretty p-icon p-round">
-                        <input type="radio" name="icon_solid" />
+                        <input v-model="client.payment_type" type="radio" name="icon_solid" value="3"/>
                         <div class="state p-info">
                             <i class="icon mdi mdi-check"></i>
                             <label>Quincenal</label>
                         </div>
                     </div>
                     <div class="pretty p-icon p-round">
-                        <input type="radio" name="icon_solid" />
+                        <input v-model="client.payment_type" type="radio" name="icon_solid" value="4"/>
                         <div class="state p-info">
                             <i class="icon mdi mdi-check"></i>
                             <label>Mensual</label>
@@ -89,9 +89,9 @@
                     </div>
                 </div>
                 <label>Sumar día cobro</label>
-                <input type="number" class="input">
+                <input v-model="client.days_added" type="number" class="input">
                 <button class="btn-cancel" v-on:click="closeModal()">Cancelar</button>
-                <button class="btn-main">Agregar</button>
+                <button class="btn-main" v-on:click="addClient()">Agregar</button>
             </div>
         </div>
         <div class="overlay hidden"></div>
@@ -107,7 +107,17 @@ export default {
         return {
             clients: [],
             pages: 0,
-            currentPage: 1
+            currentPage: 1,
+            client:{
+                name: '',
+                identification: '',
+                phone: '',
+                loan: '',
+                time_limit: '',
+                interest_rate: '',
+                payment_type: 1,
+                days_added: '',
+            }
         }
     },
     created: function () {
@@ -141,6 +151,16 @@ export default {
         pageChange(pageNum){
             this.currentPage = pageNum;
             this.getClients();
+        },
+        addClient(){
+            axios.post(process.env.VUE_APP_URL+'Clients/create', this.client)
+            .then((response) => {
+                console.log(response);
+                // this.clients = response.data.data;
+                // this.pages = response.data.pages;
+            }).catch((e) => {
+                console.log(e);
+            })
         }
     }
 }
