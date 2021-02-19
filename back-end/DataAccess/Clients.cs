@@ -108,6 +108,7 @@ namespace back_end.DataAccess
                 command.CommandText = sql;
                 var dr = command.ExecuteNonQuery();
                 transaction.Commit();
+                connection.Close();
                 res.success = true;
                 res.data = true;
                 res.messages.Add("Se agrego el cliente correctamente.");
@@ -160,6 +161,8 @@ namespace back_end.DataAccess
             }
             catch (Exception ex)
             {
+                res.errors.Add(ex.Message);
+                res.errors.Add(ex.StackTrace);
             }
             return res;
         }
@@ -182,6 +185,7 @@ namespace back_end.DataAccess
                 command.CommandText = sql;
                 var dr = command.ExecuteNonQuery();
                 transaction.Commit();
+                connection.Close();
                 res.success = true;
                 res.data = true;
                 res.messages.Add("Se actualizo el cliente correctamente.");

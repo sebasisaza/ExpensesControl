@@ -24,3 +24,14 @@ CREATE TABLE expenses.clients (
 );
 
 insert into expenses.clients (name,identification,phone,loan,time_limit,interest_rate,payment_type,days_added,created_on) values ('Sebastian', '123', '316',5000000,30, 15, 1,0, CURRENT_TIMESTAMP());
+----------------------------------
+CREATE TABLE expenses.expenses (
+	id_expense INT not null AUTO_INCREMENT,
+	description varchar(125) not null,
+	value decimal not null,
+	date date not null,
+	created_on datetime not null,
+	PRIMARY KEY (id_expense)
+);
+
+insert into expenses.expenses (description, value, date, created_on) values ('Pago ayudante', 400000, '2021-02-19', CURRENT_TIMESTAMP());

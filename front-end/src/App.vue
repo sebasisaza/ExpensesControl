@@ -92,7 +92,6 @@ nav a.router-link-exact-active {
   outline: none;
   padding: 2px 15px 2px 15px;
   width: 250px;
-  text-align: center;
   margin-bottom: 10px;
 }
 .div-table{
@@ -138,7 +137,7 @@ button:focus{
     background: #d32f2f;
     color: white;
 }
-.btn-table:hover{
+.btn-danger:hover{
   background: #a03838;
   cursor: pointer;
 }

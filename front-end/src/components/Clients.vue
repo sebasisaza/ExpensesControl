@@ -2,19 +2,22 @@
     <div class="content">
         <h1 class="tittle">Clientes</h1>
         <div class="div-table">
-            <button class="btn-main" v-on:click="showModal()">Agregar Cliente</button>
+            <button class="btn-main" v-on:click="showModal()">Agregar Cliente</button><br>
+            <input type="text" v-model="search" v-on:keyup="searchClient()" class="input-search" placeholder="Buscar...">
             <table class="table">
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Identificación</th>
                         <th>Teléfono</th>
-                        <th>Tipo</th>
+                        <th>Tipo Pago</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody v-if="clients.length > 0">
                     <tr v-for="(item) in clients" :key="item.id_client">
                         <td>{{item.name}}</td>
+                        <td>{{item.identification}}</td>
                         <td>{{item.phone}}</td>
                         <td v-if="1 === item.payment_type">Diario</td>
                         <td v-else-if="2 === item.payment_type">Semanal</td>
@@ -109,6 +112,7 @@ export default {
             clients: [],
             pages: 0,
             currentPage: 1,
+            search: '',
             client:{
                 name: '',
                 identification: '',
@@ -128,7 +132,7 @@ export default {
         getClients(){
             const size = 10;
             const page = this.currentPage;
-            const search = '';
+            const search = this.search;
             axios.get(process.env.VUE_APP_URL+`Clients/get?size=${size}&page=${page}&search=${search}`)
             .then((response) => {
                 this.clients = response.data.data;
@@ -152,6 +156,9 @@ export default {
         },
         pageChange(pageNum){
             this.currentPage = pageNum;
+            this.getClients();
+        },
+        searchClient(){
             this.getClients();
         },
         parseObjectClient(client){

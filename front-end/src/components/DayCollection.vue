@@ -2,7 +2,7 @@
     <div class="content">
         <h1 class="tittle">Cobros del día: <span class="day">16/02/2021</span></h1>
         <div class="div-table">
-            <input type="text" class="input-search" placeholder="Buscar">
+            <input type="text" class="input-search" placeholder="Buscar...">
             <table class="table">
                 <thead>
                     <tr>
