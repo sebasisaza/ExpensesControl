@@ -82,21 +82,29 @@ export default {
             };
         },
         addExpense(){
-            this.expense.value = parseInt(this.expense.value);
-            axios.post(process.env.VUE_APP_URL+'Expenses/create', this.expense)
-            .then((response) => {
-                if(response.data.data)
-                {
-                    this.$notify({
-                        title: 'Confirmación',
-                        text: response.data.messages[0]
-                    });
-                    this.cleanExpense();
-                    this.getExpenses();
-                }
-            }).catch((e) => {
-                console.log(e);
-            })
+            const validation = this.validate(this.expense);
+            if(!validation.success){
+                this.$notify({
+                    text: validation.message,
+                    type: 'error'
+                });
+            }else{
+                this.expense.value = parseInt(this.expense.value);
+                axios.post(process.env.VUE_APP_URL+'Expenses/create', this.expense)
+                .then((response) => {
+                    if(response.data.data)
+                    {
+                        this.$notify({
+                            title: 'Confirmación',
+                            text: response.data.messages[0]
+                        });
+                        this.cleanExpense();
+                        this.getExpenses();
+                    }
+                }).catch((e) => {
+                    console.log(e);
+                })
+            }
         },
         deleteExpense(id_expense){
             axios.get(process.env.VUE_APP_URL+`Expenses/delete/${id_expense}`)
@@ -112,6 +120,25 @@ export default {
             }).catch((e) => {
                 console.log(e);
             })
+        },
+        validate(expense){
+            let res = {
+                success: false,
+                message: ''
+            };
+            if(expense.description === ''){
+                res.message = 'El concepto es obligatorio';
+                return res;
+            }else if(expense.value === ''){
+                res.message = 'El valor es obligatorio';
+                return res;
+            }else if(expense.date === ''){
+                res.message = 'La fecha es obligatoria';
+                return res;
+            }else{
+                res.success = true;
+                return res;
+            }
         }
     }
 }

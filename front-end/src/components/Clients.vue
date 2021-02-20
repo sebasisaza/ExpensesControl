@@ -185,10 +185,10 @@ export default {
             };
         },
         addClient(){
-            const validaiton = this.validate(this.client);
-            if(!validaiton.success){
+            const validation = this.validate(this.client);
+            if(!validation.success){
                 this.$notify({
-                    text: validaiton.message,
+                    text: validation.message,
                     type: 'error'
                 });
             }else{
@@ -221,10 +221,10 @@ export default {
             })
         },
         updateClient(){
-            const validaiton = this.validate(this.client);
-            if(!validaiton.success){
+            const validation = this.validate(this.client);
+            if(!validation.success){
                 this.$notify({
-                    text: validaiton.message,
+                    text: validation.message,
                     type: 'error'
                 });
             }else{
