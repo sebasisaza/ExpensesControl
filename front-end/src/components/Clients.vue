@@ -94,8 +94,8 @@
                 <label>Sumar día cobro</label>
                 <input v-model="client.days_added" type="number" class="input">
                 <button class="btn-cancel" v-on:click="closeModal()">Cancelar</button>
-                <button class="btn-main" v-if="client.name === ''" v-on:click="addClient()">Agregar</button>
-                <button class="btn-main" v-else v-on:click="updateClient()">Actualizar</button>
+                <button class="btn-main" v-if="!update" v-on:click="addClient()">Agregar</button>
+                <button class="btn-main" v-if="update" v-on:click="updateClient()">Actualizar</button>
             </div>
         </div>
         <div class="overlay hidden"></div>
@@ -122,7 +122,8 @@ export default {
                 interest_rate: '',
                 payment_type: 1,
                 days_added: ''
-            }
+            },
+            update: false
         }
     },
     created: function () {
@@ -153,6 +154,7 @@ export default {
             modal.classList.add('hidden');
             overlay.classList.add('hidden');
             this.cleanClient();
+            this.update = false;
         },
         pageChange(pageNum){
             this.currentPage = pageNum;
@@ -183,24 +185,33 @@ export default {
             };
         },
         addClient(){
-            this.parseObjectClient(this.client);
-            axios.post(process.env.VUE_APP_URL+'Clients/create', this.client)
-            .then((response) => {
-                if(response.data.data)
-                {
-                    this.closeModal();
-                    this.cleanClient();
-                    this.$notify({
-                        title: 'Confirmación',
-                        text: response.data.messages[0]
-                    });
-                    this.getClients();
-                }
-            }).catch((e) => {
-                console.log(e);
-            })
+            const validaiton = this.validate(this.client);
+            if(!validaiton.success){
+                this.$notify({
+                    text: validaiton.message,
+                    type: 'error'
+                });
+            }else{
+                this.parseObjectClient(this.client);
+                axios.post(process.env.VUE_APP_URL+'Clients/create', this.client)
+                .then((response) => {
+                    if(response.data.data)
+                    {
+                        this.closeModal();
+                        this.cleanClient();
+                        this.$notify({
+                            text: response.data.messages[0],
+                            type: 'success'
+                        });
+                        this.getClients();
+                    }
+                }).catch((e) => {
+                    console.log(e);
+                })
+            }
         },
         getClient(id_client){
+            this.update = true;
             axios.get(process.env.VUE_APP_URL+`Clients/get/${id_client}`)
             .then((response) => {
                 this.client = response.data.data;
@@ -210,22 +221,61 @@ export default {
             })
         },
         updateClient(){
-            this.parseObjectClient(this.client);
-            axios.post(process.env.VUE_APP_URL+'Clients/update', this.client)
-            .then((response) => {
-                if(response.data.data)
-                {
-                    this.closeModal();
-                    this.cleanClient();
-                    this.$notify({
-                        title: 'Confirmación',
-                        text: response.data.messages[0]
-                    });
-                    this.getClients();
-                }
-            }).catch((e) => {
-                console.log(e);
-            })
+            const validaiton = this.validate(this.client);
+            if(!validaiton.success){
+                this.$notify({
+                    text: validaiton.message,
+                    type: 'error'
+                });
+            }else{
+                this.parseObjectClient(this.client);
+                axios.post(process.env.VUE_APP_URL+'Clients/update', this.client)
+                .then((response) => {
+                    if(response.data.data)
+                    {
+                        this.closeModal();
+                        this.cleanClient();
+                        this.$notify({
+                            text: response.data.messages[0],
+                            type: 'success'
+                        });
+                        this.getClients();
+                    }
+                }).catch((e) => {
+                    console.log(e);
+                })
+            }
+        },
+        validate(client){
+            let res = {
+                success: false,
+                message: ''
+            };
+            if(client.name === ''){
+                res.message = 'El nombre es obligatorio';
+                return res;
+            }else if(client.identification === ''){
+                res.message = 'La identificación es obligatoria';
+                return res;
+            }else if(client.phone === ''){
+                res.message = 'El teléfono es obligatorio';
+                return res;
+            }else if(client.loan === ''){
+                res.message = 'La prestamo es obligatorio';
+                return res;
+            }else if(client.time_limit === ''){
+                res.message = 'El plazo es obligatorio';
+                return res;
+            }else if(client.payment_type === ''){
+                res.message = 'El tipo de pago es obligatorio';
+                return res;
+            }else if(client.days_added === ''){
+                res.message = 'Sumar día cobro es obligatorio';
+                return res;
+            }else{
+                res.success = true;
+                return res;
+            }
         }
     }
 }
