@@ -42,6 +42,7 @@
 </template>
 <script>
 import axios from 'axios'
+import moment from 'moment'
 export default {
     data: function () {
         return {
@@ -51,7 +52,7 @@ export default {
             expense:{
                 description: '',
                 value: '',
-                date: ''
+                date: moment().format('yyyy-MM-DD')
             }
         }
     },
