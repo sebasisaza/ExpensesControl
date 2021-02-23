@@ -15,5 +15,13 @@ namespace back_end.Controllers
             var res = ClientsPayments.GetByClient(id_client);
             return res;
         }
+
+        [HttpPost]
+        [Route("create")]
+        public ActionResult<ResponseItem<bool>> create([FromBody] ClientPayment client_payment)
+        {
+            var res = ClientsPayments.Create(client_payment);
+            return res;
+        }
     }
 }

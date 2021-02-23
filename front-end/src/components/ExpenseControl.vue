@@ -79,8 +79,8 @@ export default {
             this.expense = {
                 description: '',
                 value: '',
-                date: ''
-            };
+                date: moment().format('yyyy-MM-DD')
+            }
         },
         addExpense(){
             const validation = this.validate(this.expense);

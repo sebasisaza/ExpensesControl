@@ -97,5 +97,36 @@ namespace back_end.DataAccess
             }
             return res;
         }
+
+        public static ResponseItem<bool> Create(ClientPayment client_payment)
+        {
+            var res = new ResponseItem<bool>();
+            try
+            {
+                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                MySqlTransaction transaction = connection.BeginTransaction();
+                command.Connection = connection;
+                command.Transaction = transaction;
+                DateTime now = DateTime.Now;
+                var date = client_payment.date.ToString("yyyy-MM-dd", new CultureInfo("es-CO"));
+                var sql = $@"insert into expenses.clients_payments (id_client,value,date,created_on) values ({client_payment.id_client},{client_payment.value},'{date}','{now.ToString("yyyy/MM/dd HH:mm:ss", new CultureInfo("es-CO"))}');";
+
+                command.CommandText = sql;
+                var dr = command.ExecuteNonQuery();
+                transaction.Commit();
+                connection.Close();
+                res.success = true;
+                res.data = true;
+                res.messages.Add("Se agrego el pago correctamente.");
+            }
+            catch (Exception ex)
+            {
+                res.errors.Add(ex.Message);
+                res.errors.Add(ex.StackTrace);
+            }
+            return res;
+        }
     }
 }

@@ -40,11 +40,11 @@
             </div>
             <div class="form">
                 <label>Valor</label>
-                <input type="number" class="input">
+                <input  v-model="clientPayment.value" type="number" class="input">
                 <label>Fecha</label>
-                <input type="date" class="input">
+                <input v-model="clientPayment.date" type="date" class="input">
                 <button class="btn-cancel" v-on:click="closeModal()">Cancelar</button>
-                <button class="btn-main">Agregar</button>
+                <button  v-on:click="addPayment()" class="btn-main">Agregar</button>
             </div>
         </div>
         <div class="overlay hidden"></div>
@@ -53,6 +53,7 @@
 </template>
 <script>
 import axios from 'axios'
+import moment from 'moment'
 export default {
     data: function () {
         return {
@@ -65,6 +66,11 @@ export default {
                 payment_paid: '',
                 payment_owed: '',
                 payments: []
+            },
+            clientPayment:{
+                value: '',
+                date: moment().format('yyyy-MM-DD'),
+                id_client: this.id_client
             }
         }
     },
@@ -83,6 +89,7 @@ export default {
             const overlay = document.querySelector('.overlay');
             modal.classList.add('hidden');
             overlay.classList.add('hidden');
+             this.cleanPayment();
         },
         getDetail(){
             axios.get(process.env.VUE_APP_URL+`ClientPayments/getByIdClient/${this.id_client}`)
@@ -91,7 +98,57 @@ export default {
             }).catch((e) => {
                 console.log(e);
             })   
-        }
+        },
+        addPayment(){
+            const validation = this.validate(this.clientPayment);
+            if(!validation.success){
+                this.$notify({
+                    text: validation.message,
+                    type: 'error'
+                });
+            }else{
+                this.clientPayment.id_client = parseInt(this.id_client);
+                this.clientPayment.value = parseInt(this.clientPayment.value);
+                axios.post(process.env.VUE_APP_URL+'ClientPayments/create', this.clientPayment)
+                .then((response) => {
+                    if(response.data.data)
+                    {
+                        this.closeModal();
+                        this.cleanPayment();
+                        this.$notify({
+                            title: 'Confirmación',
+                            text: response.data.messages[0]
+                        });
+                        this.getDetail();
+                    }
+                }).catch((e) => {
+                    console.log(e);
+                })
+            }
+        },
+        validate(clientPayment){
+            let res = {
+                success: false,
+                message: ''
+            };
+            if(clientPayment.value === ''){
+                res.message = 'El valor es obligatorio';
+                return res;
+            }else if(clientPayment.date === ''){
+                res.message = 'La fecha es obligatoria';
+                return res;
+            }else{
+                res.success = true;
+                return res;
+            }
+        },
+        cleanPayment(){
+            this.clientPayment = {
+                value: '',
+                date: moment().format('yyyy-MM-DD'),
+                id_client: this.id_client
+            }
+        },
     }
     
 }
