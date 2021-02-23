@@ -35,3 +35,45 @@ CREATE TABLE expenses.expenses (
 );
 
 insert into expenses.expenses (description, value, date, created_on) values ('Pago ayudante', 400000, '2021-02-19', CURRENT_TIMESTAMP());
+
+------------------------------------
+
+Create or replace View `DayCollectionsView` as 
+Select
+    id_client,
+    name as 'name_client',
+    phone as 'phone_client',
+    CASE 
+        WHEN payment_type = 1 
+        	THEN DATE_ADD(DATE_FORMAT(created_on, '%Y-%m-%d'), INTERVAL days_added+1 day)
+        WHEN payment_type = 2
+        	THEN DATE_ADD(DATE_FORMAT(created_on, '%Y-%m-%d'), INTERVAL days_added+7 day)
+        WHEN payment_type = 3
+        	THEN DATE_ADD(DATE_FORMAT(created_on, '%Y-%m-%d'), INTERVAL days_added+14 day)
+        WHEN payment_type = 4
+        	THEN DATE_ADD(DATE_FORMAT(created_on, '%Y-%m-%d'), INTERVAL 1 month)
+    end as 'day_payment',
+    CASE 
+        WHEN payment_type = 1 
+        	then ROUND(time_limit/1, 0)
+        WHEN payment_type = 2
+        	then ROUND(time_limit/7)
+        WHEN payment_type = 3
+        	then ROUND(time_limit/15)
+        WHEN payment_type = 4
+        	then ROUND(time_limit/30)
+    end as 'scheduled_payments',
+    (select count(1) from expenses.clients_payments where c.id_client = id_client) as 'total_payments',
+    CASE 
+        WHEN payment_type = 1 
+        	then loan/(ROUND(time_limit/1))
+        WHEN payment_type = 2
+        	then loan/(ROUND(time_limit/7))
+        WHEN payment_type = 3
+        	then loan/(ROUND(time_limit/14))
+        WHEN payment_type = 4
+        	then loan/(ROUND(time_limit/30))
+    end as 'scheduled_value'
+From
+    expenses.clients c
+        
