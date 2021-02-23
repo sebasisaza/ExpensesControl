@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <h1 class="tittle">Cobros del día: <span class="day">16/02/2021</span></h1>
+        <h1 class="tittle">Cobros del día: <span class="day">{{today}}</span></h1>
         <div class="div-table">
             <input type="text" class="input-search" placeholder="Buscar...">
             <table class="table">
@@ -8,7 +8,6 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Teléfono</th>
-                        <th>Dirección</th>
                         <th>Cuota</th>
                         <th>Valor Por Cuota</th>
                         <th>Detalle</th>
@@ -16,37 +15,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Gasolina</td>
-                        <td>20.000</td>
-                        <td>16/02/2021</td>
-                        <td>16/02/2021</td>
-                        <td>16/02/2021</td>
-                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Detalle</button></router-link></td>
-                    </tr>
-                    <tr>
-                        <td>Gasolina</td>
-                        <td>20.000</td>
-                        <td>16/02/2021</td>
-                        <td>16/02/2021</td>
-                        <td>16/02/2021</td>
-                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Detalle</button></router-link></td>
-                    </tr>
-                    <tr>
-                        <td>Gasolina</td>
-                        <td>20.000</td>
-                        <td>16/02/2021</td>
-                        <td>16/02/2021</td>
-                        <td>16/02/2021</td>
-                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Detalle</button></router-link></td>
-                    </tr>
-                    <tr>
-                        <td>Gasolina</td>
-                        <td>20.000</td>
-                        <td>16/02/2021</td>
-                        <td>16/02/2021</td>
-                        <td>16/02/2021</td>
-                        <td><router-link :to="{ path: 'detail-client/1' }"><button class="btn-info">Detalle</button></router-link></td>
+                    <tr v-for="(item) in dayCollections" :key="item.id_client">
+                        <td>{{item.name_client}}</td>
+                        <td>{{item.phone_client}}</td>
+                        <td>{{item.payments}}/{{item.payments_scheduled}}</td>
+                        <td>{{item.payments_value}}</td>
+                        <td><router-link :to="{ path: 'detail-client/'+item.id_client }"><button class="btn-info">Detalle</button></router-link></td>
                     </tr>
                 </tbody>
             </table>
@@ -54,8 +28,29 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
+import moment from 'moment'
 export default {
-    
+    data: function(){
+        return {
+            today: moment().format('yyyy-MM-DD'),
+            dayCollections: []
+        }
+    },
+    created(){
+        this.getDatCollections();
+    },
+    methods:{
+        getDatCollections(){
+            axios.get(process.env.VUE_APP_URL+`DayCollections/get`)
+            .then((response) => {
+                this.dayCollections = response.data.data;
+            }).catch((e) => {
+                console.log(e);
+            })   
+        }
+
+    }
 }
 </script>
 <style>

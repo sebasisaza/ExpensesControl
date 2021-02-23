@@ -11,9 +11,9 @@ namespace back_end.Controllers
     {
         [HttpGet]
         [Route("get")]
-        public ActionResult<ResponsePage<List<DayCollection>>> Get(int size, int page, string search)
+        public ActionResult<ResponseItem<List<DayCollection>>> Get()
         {
-            var res = DayCollections.Get(size, page, search);
+            var res = DayCollections.Get();
             return res;
         }
     }

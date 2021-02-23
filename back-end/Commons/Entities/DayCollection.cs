@@ -10,7 +10,8 @@ namespace back_end.Commons.Entities
         public int id_client { get; set; }
         public string name_client { get; set; }
         public string phone_client { get; set; }
-        public string fee_summary { get; set; }
-        public string fee_value { get; set; }
+        public string payments { get; set; }
+        public string payments_scheduled { get; set; }
+        public string payments_value { get; set; }
     }
 }
