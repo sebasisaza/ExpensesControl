@@ -72,6 +72,8 @@ namespace back_end.DataAccess
                     if (dr != null)
                     {
                         var client_payment = new ClientPayment();
+                        client_payment.id_client_payment = Convert.ToInt32(dr["id_client_payment"]);
+                        client_payment.id_client = id_client;
                         client_payment.value = Convert.ToSingle(dr["value"]);
                         client_payment.date = Convert.ToDateTime(dr["date"]);
                         res.data.payments.Add(client_payment);
