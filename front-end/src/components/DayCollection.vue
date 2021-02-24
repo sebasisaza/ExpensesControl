@@ -10,7 +10,7 @@
                         <th>Teléfono</th>
                         <th>Cuota</th>
                         <th>Valor Por Cuota</th>
-                        <th>Detalle</th>
+                        <!-- <th>Detalle</th> -->
                         <th></th>
                     </tr>
                 </thead>
@@ -20,7 +20,7 @@
                         <td>{{item.phone_client}}</td>
                         <td>{{item.payments}}/{{item.payments_scheduled}}</td>
                         <td>{{item.payments_value}}</td>
-                        <td><router-link :to="{ path: 'detail-client/'+item.id_client }"><button class="btn-info">Detalle</button></router-link></td>
+                        <!-- <td><router-link :to="{ path: 'detail-client/'+item.id_client }"><button class="btn-info">Detalle</button></router-link></td> -->
                     </tr>
                 </tbody>
             </table>
@@ -49,7 +49,6 @@ export default {
                 console.log(e);
             })   
         }
-
     }
 }
 </script>

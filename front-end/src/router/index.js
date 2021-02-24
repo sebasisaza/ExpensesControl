@@ -5,6 +5,7 @@ import ExpenseControl from '../views/ExpenseControl.vue'
 import DayCollection from '../views/DayCollection.vue'
 import DetailClient from '../views/DetailClient.vue'
 import Clients from '../views/Clients.vue'
+import Payments from '../views/Payments.vue'
 
 Vue.use(VueRouter)
 
@@ -25,14 +26,19 @@ const routes = [
     component: DayCollection
   },
   {
-    path: '/detail-client/:id_client',
-    name: 'DetailClient',
-    component: DetailClient
+    path: '/payments',
+    name: 'Payments',
+    component: Payments
   },
   {
     path: '/clients',
     name: 'Clients',
     component: Clients
+  },
+  {
+    path: '/payments',
+    name: 'DetailClient',
+    component: DetailClient
   }
 ]
 
