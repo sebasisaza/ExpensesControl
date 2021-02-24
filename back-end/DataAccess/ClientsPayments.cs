@@ -93,9 +93,9 @@ namespace back_end.DataAccess
                 res.data.interest_rate = client.data.interest_rate;
                 res.data.loan = client.data.loan;
                 res.data.payment_paid = res.data.payments.Sum(x => x.value);
-                var interest_rate = client.data.loan * (client.data.interest_rate / 100);
-                res.data.payment_owed = (client.data.loan + interest_rate) - res.data.payments.Sum(x => x.value);
-                res.data.payment_scheduled = res.data.payment_owed / payment_days;
+                var interest_value = client.data.loan * (client.data.interest_rate / 100);
+                res.data.payment_owed = (client.data.loan + interest_value) - res.data.payments.Sum(x => x.value);
+                res.data.payment_scheduled = (client.data.loan + interest_value) / (client.data.time_limit / payment_days);
                 res.success = true;
                 dr.Close();
                 transaction.Commit();
