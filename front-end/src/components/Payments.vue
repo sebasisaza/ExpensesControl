@@ -57,7 +57,14 @@
                 <label>{{clientDetail.payment_paid}}</label>
                 <label>Valor Adeudado</label>
                 <label>{{clientDetail.payment_owed}}</label>
-            </div><br>
+            </div><hr><br>
+            <div class="form">
+                <label>Valor</label>
+                <input v-model="payment.value" type="number" class="input">
+                <label>Fecha</label>
+                <input v-model="payment.date" type="date" class="input">
+                <button class="btn-main" v-on:click="addPayment(payment)">Agregar Pago</button>
+            </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -67,7 +74,7 @@
                     </tr>
                 </thead>
                 <tbody v-if="clientDetail.payments.length > 0">
-                    <tr v-for="(item, i) in clientDetail.payments" :key="item.id_client">
+                    <tr v-for="(item, i) in clientDetail.payments" :key="item.id_client_payment">
                         <td>{{i+1}}</td>
                         <td>{{item.value}}</td>
                         <td>{{item.date}}</td>
@@ -93,6 +100,7 @@ export default {
     Paginate,
     data: function () {
         return {
+            id_client: 0,
             clients: [],
             pages: 0,
             currentPage: 1,
@@ -106,7 +114,11 @@ export default {
                 interest_rate: '',
                 payments:[]
             },
-            update: false
+            payment:{
+                id_client: 0,
+                value: '',
+                date: moment().format('yyyy-MM-DD'),
+            }
         }
     },
     created: function () {
@@ -136,8 +148,6 @@ export default {
             const overlay = document.querySelector('.overlay');
             modal.classList.add('hidden');
             overlay.classList.add('hidden');
-            this.cleanClient();
-            this.update = false;
         },
         pageChange(pageNum){
             this.currentPage = pageNum;
@@ -147,6 +157,7 @@ export default {
             this.getClients();
         },
         getDetail(id_client){
+            this.id_client = id_client;
             this.showModal();
             axios.get(process.env.VUE_APP_URL+`ClientPayments/getByIdClient/${id_client}`)
             .then((response) => {
@@ -156,16 +167,17 @@ export default {
             })   
         },
         addPayment(){
-            const validation = this.validate(this.clientPayment);
+            this.payment.id_client = this.id_client;
+            const validation = this.validate(this.payment);
             if(!validation.success){
                 this.$notify({
                     text: validation.message,
                     type: 'error'
                 });
             }else{
-                this.clientPayment.id_client = parseInt(this.id_client);
-                this.clientPayment.value = parseInt(this.clientPayment.value);
-                axios.post(process.env.VUE_APP_URL+'ClientPayments/create', this.clientPayment)
+                this.payment.id_client = parseInt(this.id_client);
+                this.payment.value = parseInt(this.payment.value);
+                axios.post(process.env.VUE_APP_URL+'ClientPayments/create', this.payment)
                 .then((response) => {
                     if(response.data.data)
                     {
@@ -175,22 +187,22 @@ export default {
                             title: 'Confirmación',
                             text: response.data.messages[0]
                         });
-                        this.getDetail();
+                        this.getDetail(this.payment.id_client);
                     }
                 }).catch((e) => {
                     console.log(e);
                 })
             }
         },
-        validate(clientPayment){
+        validate(payment){
             let res = {
                 success: false,
                 message: ''
             };
-            if(clientPayment.value === ''){
+            if(payment.value === ''){
                 res.message = 'El valor es obligatorio';
                 return res;
-            }else if(clientPayment.date === ''){
+            }else if(payment.date === ''){
                 res.message = 'La fecha es obligatoria';
                 return res;
             }else{
@@ -199,7 +211,7 @@ export default {
             }
         },
         cleanPayment(){
-            this.clientPayment = {
+            this.payment = {
                 value: '',
                 date: moment().format('yyyy-MM-DD'),
                 id_client: this.id_client
