@@ -49,7 +49,7 @@ namespace back_end.DataAccess
             res.data = new List<Client>();
             try
             {
-                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
+                using MySqlConnection connection = new MySqlConnection("server=MYSQL5043.site4now.net; Database=db_a7024a_expense; uid=a7024a_expense; Pwd=Database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 command.Connection = connection;

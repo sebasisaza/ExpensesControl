@@ -13,14 +13,14 @@ namespace back_end.DataAccess
             res.data = new List<Client>();
             try
             {
-                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
+                using MySqlConnection connection = new MySqlConnection("server=MYSQL5043.site4now.net; Database=db_a7024a_expense; uid=a7024a_expense; Pwd=Database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 MySqlTransaction transaction = connection.BeginTransaction();
                 command.Connection = connection;
                 command.Transaction = transaction;
 
-                var sql = $"select * from expenses.clients where identification like '%{search}%' limit {size} OFFSET {page-1}";
+                var sql = $"select * from clients where identification like '%{search}%' limit {size} OFFSET {page-1}";
 
                 command.CommandText = sql;
                 var dr = command.ExecuteReader();
@@ -62,7 +62,7 @@ namespace back_end.DataAccess
             var res = 0;
             try
             {
-                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
+                using MySqlConnection connection = new MySqlConnection("server=MYSQL5043.site4now.net; Database=db_a7024a_expense; uid=a7024a_expense; Pwd=Database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 MySqlTransaction transaction = connection.BeginTransaction();
@@ -94,7 +94,7 @@ namespace back_end.DataAccess
             var res = new ResponseItem<bool>();
             try
             {
-                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
+                using MySqlConnection connection = new MySqlConnection("server=MYSQL5043.site4now.net; Database=db_a7024a_expense; uid=a7024a_expense; Pwd=Database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 MySqlTransaction transaction = connection.BeginTransaction();
@@ -126,7 +126,7 @@ namespace back_end.DataAccess
             var res = new ResponseItem<Client>();
             try
             {
-                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
+                using MySqlConnection connection = new MySqlConnection("server=MYSQL5043.site4now.net; Database=db_a7024a_expense; uid=a7024a_expense; Pwd=Database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 MySqlTransaction transaction = connection.BeginTransaction();
@@ -172,7 +172,7 @@ namespace back_end.DataAccess
             var res = new ResponseItem<bool>();
             try
             {
-                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
+                using MySqlConnection connection = new MySqlConnection("server=MYSQL5043.site4now.net; Database=db_a7024a_expense; uid=a7024a_expense; Pwd=Database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 MySqlTransaction transaction = connection.BeginTransaction();
