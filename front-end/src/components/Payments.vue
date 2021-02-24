@@ -88,6 +88,7 @@
 <script>
 import axios from 'axios'
 import Paginate from 'vuejs-paginate'
+import moment from 'moment'
 export default {
     Paginate,
     data: function () {
@@ -145,53 +146,6 @@ export default {
         searchClient(){
             this.getClients();
         },
-        parseObjectClient(client){
-            this.client.identification = parseFloat(client.identification);
-            this.client.loan = parseFloat(client.loan);
-            this.client.time_limit = parseFloat(client.time_limit);
-            this.client.interest_rate = parseFloat(client.interest_rate);
-            this.client.days_added = parseFloat(client.days_added);
-            this.client.payment_type = parseFloat(client.payment_type);
-            return this.client;
-        },
-        cleanClient(){
-            this.client = {
-                name: '',
-                identification: '',
-                phone: '',
-                loan: '',
-                time_limit: '',
-                interest_rate: '',
-                payment_type: 1,
-                days_added: ''
-            };
-        },
-        addClient(){
-            const validation = this.validate(this.client);
-            if(!validation.success){
-                this.$notify({
-                    text: validation.message,
-                    type: 'error'
-                });
-            }else{
-                this.parseObjectClient(this.client);
-                axios.post(process.env.VUE_APP_URL+'Clients/create', this.client)
-                .then((response) => {
-                    if(response.data.data)
-                    {
-                        this.closeModal();
-                        this.cleanClient();
-                        this.$notify({
-                            text: response.data.messages[0],
-                            type: 'success'
-                        });
-                        this.getClients();
-                    }
-                }).catch((e) => {
-                    console.log(e);
-                })
-            }
-        },
         getDetail(id_client){
             this.showModal();
             axios.get(process.env.VUE_APP_URL+`ClientPayments/getByIdClient/${id_client}`)
@@ -201,63 +155,56 @@ export default {
                 console.log(e);
             })   
         },
-        updateClient(){
-            const validation = this.validate(this.client);
+        addPayment(){
+            const validation = this.validate(this.clientPayment);
             if(!validation.success){
                 this.$notify({
                     text: validation.message,
                     type: 'error'
                 });
             }else{
-                this.parseObjectClient(this.client);
-                axios.post(process.env.VUE_APP_URL+'Clients/update', this.client)
+                this.clientPayment.id_client = parseInt(this.id_client);
+                this.clientPayment.value = parseInt(this.clientPayment.value);
+                axios.post(process.env.VUE_APP_URL+'ClientPayments/create', this.clientPayment)
                 .then((response) => {
                     if(response.data.data)
                     {
                         this.closeModal();
-                        this.cleanClient();
+                        this.cleanPayment();
                         this.$notify({
-                            text: response.data.messages[0],
-                            type: 'success'
+                            title: 'Confirmación',
+                            text: response.data.messages[0]
                         });
-                        this.getClients();
+                        this.getDetail();
                     }
                 }).catch((e) => {
                     console.log(e);
                 })
             }
         },
-        validate(client){
+        validate(clientPayment){
             let res = {
                 success: false,
                 message: ''
             };
-            if(client.name === ''){
-                res.message = 'El nombre es obligatorio';
+            if(clientPayment.value === ''){
+                res.message = 'El valor es obligatorio';
                 return res;
-            }else if(client.identification === ''){
-                res.message = 'La identificación es obligatoria';
-                return res;
-            }else if(client.phone === ''){
-                res.message = 'El teléfono es obligatorio';
-                return res;
-            }else if(client.loan === ''){
-                res.message = 'La prestamo es obligatorio';
-                return res;
-            }else if(client.time_limit === ''){
-                res.message = 'El plazo es obligatorio';
-                return res;
-            }else if(client.payment_type === ''){
-                res.message = 'El tipo de pago es obligatorio';
-                return res;
-            }else if(client.days_added === ''){
-                res.message = 'Sumar día cobro es obligatorio';
+            }else if(clientPayment.date === ''){
+                res.message = 'La fecha es obligatoria';
                 return res;
             }else{
                 res.success = true;
                 return res;
             }
-        }
+        },
+        cleanPayment(){
+            this.clientPayment = {
+                value: '',
+                date: moment().format('yyyy-MM-DD'),
+                id_client: this.id_client
+            }
+        },
     }
 }
 </script>
