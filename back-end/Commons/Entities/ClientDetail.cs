@@ -14,6 +14,7 @@ namespace back_end.Commons.Entities
         public float loan { get; set; }
         public float payment_paid { get; set; }
         public float payment_owed { get; set; }
+        public float payment_scheduled { get; set; }
         public int time_limit { get; set; }
         public float interest_rate { get; set; }
         public short payment_type { get; set; }

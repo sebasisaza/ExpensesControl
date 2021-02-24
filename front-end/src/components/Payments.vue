@@ -53,6 +53,8 @@
                 <label>{{clientDetail.interest_rate}}%</label>
                 <label>Teléfono</label>
                 <label>{{clientDetail.phone}}</label>
+                <label>Valor Cuota</label>
+                <label>{{clientDetail.payment_scheduled}}</label>
                 <label>Valor Prestado</label>
                 <label>{{clientDetail.loan}}</label>
                 <label>Valor Pagado</label>
@@ -114,6 +116,7 @@ export default {
                 phone: '',
                 loan: '',
                 time_limit: '',
+                payment_scheduled: '',
                 payments:[]
             },
             payment:{

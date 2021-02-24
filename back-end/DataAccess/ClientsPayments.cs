@@ -56,6 +56,13 @@ namespace back_end.DataAccess
             try
             {
                 var client = Clients.GetById(id_client);
+                var payment_days = 1;
+                if (client.data.payment_type == 2)
+                    payment_days = 7;
+                else if (client.data.payment_type == 3)
+                    payment_days = 14;
+                else if (client.data.payment_type == 4)
+                    payment_days = 30;
                 using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
@@ -85,10 +92,10 @@ namespace back_end.DataAccess
                 res.data.identification = client.data.identification;
                 res.data.interest_rate = client.data.interest_rate;
                 res.data.loan = client.data.loan;
-
                 res.data.payment_paid = res.data.payments.Sum(x => x.value);
                 var interest_rate = client.data.loan * (client.data.interest_rate / 100);
                 res.data.payment_owed = (client.data.loan + interest_rate) - res.data.payments.Sum(x => x.value);
+                res.data.payment_scheduled = res.data.payment_owed / payment_days;
                 res.success = true;
                 dr.Close();
                 transaction.Commit();
