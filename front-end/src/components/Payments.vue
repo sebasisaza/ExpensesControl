@@ -49,6 +49,8 @@
             <div class="form">
                 <label>Nombre</label>
                 <label>{{clientDetail.name}}</label>
+                <label>Tasa</label>
+                <label>{{clientDetail.interest_rate}}%</label>
                 <label>Teléfono</label>
                 <label>{{clientDetail.phone}}</label>
                 <label>Valor Prestado</label>
@@ -107,11 +109,11 @@ export default {
             search: '',
             clientDetail:{
                 name: '',
+                interest_rate: '',
                 identification: '',
                 phone: '',
                 loan: '',
                 time_limit: '',
-                interest_rate: '',
                 payments:[]
             },
             payment:{

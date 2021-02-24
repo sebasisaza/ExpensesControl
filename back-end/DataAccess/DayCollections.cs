@@ -33,6 +33,7 @@ namespace back_end.DataAccess
                 day_collection.phone_client = item.phone;
                 day_collection.payments = id_clients.data.Where(x => x.Key == item.id_client).FirstOrDefault().Value.ToString();
                 day_collection.payments_scheduled = Math.Round((decimal)item.time_limit / (decimal)payment_days).ToString();
+                var interest_rate = item.loan * (item.interest_rate / 100);
                 day_collection.payments_value = (item.loan / (item.time_limit / payment_days)).ToString();
 
                 res.data.Add(day_collection);
