@@ -17,7 +17,7 @@ namespace back_end.DataAccess
             res.data = new Dictionary<int, int>();
             try
             {
-                using MySqlConnection connection = new MySqlConnection("server=MYSQL5043.site4now.net; Database=db_a7024a_expense; uid=a7024a_expense; Pwd=Database123;");
+                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 command.Connection = connection;
@@ -63,7 +63,7 @@ namespace back_end.DataAccess
                     payment_days = 14;
                 else if (client.data.payment_type == 4)
                     payment_days = 30;
-                using MySqlConnection connection = new MySqlConnection("server=MYSQL5043.site4now.net; Database=db_a7024a_expense; uid=a7024a_expense; Pwd=Database123;");
+                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 MySqlTransaction transaction = connection.BeginTransaction();
@@ -113,7 +113,7 @@ namespace back_end.DataAccess
             var res = new ResponseItem<bool>();
             try
             {
-                using MySqlConnection connection = new MySqlConnection("server=MYSQL5043.site4now.net; Database=db_a7024a_expense; uid=a7024a_expense; Pwd=Database123;");
+                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 MySqlTransaction transaction = connection.BeginTransaction();

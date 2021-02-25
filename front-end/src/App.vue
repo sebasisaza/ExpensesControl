@@ -35,17 +35,16 @@
 .content{
   grid-area: content;
 }
+header{
+  display: flex;
+  justify-content: space-around;
+  background: #101A26;
+  color: #fff;
+  padding: 1rem;
+}
 nav a:link{
   text-decoration: none;
   color: #101A26;
-}
-header{
-  background: #101A26;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
 }
 nav {
   padding: 0.3rem;
@@ -69,6 +68,7 @@ nav a.router-link-exact-active {
 .content{
     display: grid;
     grid-template-columns: 1fr;
+    width: 100%;
 }
 .form {
     display: grid;
@@ -158,20 +158,33 @@ button:focus{
 
 @media only screen 
   and (min-device-width: 320px) 
-  and (max-device-width: 480px)
+  and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2) {
-
-    nav {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr, 1fr;
-      grid-template-areas: 'router-link router-link'
-                           'router-link router-link';
-      align-items: center;
-      max-width: 320px;
+    nav a{
+      padding: 5px;
+      text-decoration: none;
+      font-weight: bolder;
+      font-size: 13px;
     }
-    input{
-      width: 110px;
+    .form{
+      padding: 0 2% 0 2%;
+    }
+    .div-table{
+      padding: 0 2% 0 2%;
+    }
+    .input{
+      width: 100px;
+      height: 25px;
+    }
+    .modal .form{
+      display: grid;
+      grid-template-columns: 120px 200px;
+    }
+    .radios{
+      flex-direction: column;
+    }
+    .modal .btn-cancel, .modal .btn-main{
+      width: 120px;
     }
 }
 
