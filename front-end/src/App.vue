@@ -68,7 +68,6 @@ nav a.router-link-exact-active {
 .content{
     display: grid;
     grid-template-columns: 1fr;
-    width: 100%;
 }
 .form {
     display: grid;
@@ -157,9 +156,13 @@ button:focus{
 }
 
 @media only screen 
-  and (min-device-width: 320px) 
+  and (min-device-width: 300px) 
   and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2) {
+    nav{
+      flex-direction: column;
+      align-items: center;
+    }
     nav a{
       padding: 5px;
       text-decoration: none;
@@ -171,6 +174,14 @@ button:focus{
     }
     .div-table{
       padding: 0 2% 0 2%;
+    }
+    .table th, .table td {
+        padding: 3px;
+        word-wrap: break-word
+    }
+    .btn-danger, .btn-info{
+      width: 60px;
+      font-size: 13px;
     }
     .input{
       width: 100px;
@@ -185,6 +196,9 @@ button:focus{
     }
     .modal .btn-cancel, .modal .btn-main{
       width: 120px;
+    }
+    .hide{
+      display: none;
     }
 }
 

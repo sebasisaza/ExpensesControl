@@ -24,7 +24,7 @@
                     <tr v-for="(item) in expenses" :key="item.id_expense">
                         <td>{{item.description}}</td>
                         <td>{{item.value}}</td>
-                        <td>{{item.date}}</td>
+                        <td>{{item.date.substring(0,item.date.length-9)}}</td>
                         <td><button v-on:click="deleteExpense(item.id_expense)" class="btn-danger">Borrar</button></td>
                     </tr>
                 </tbody>

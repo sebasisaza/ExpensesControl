@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <h1 class="tittle">Clientes</h1>
+        <h1 class="tittle">Relación de Pagos</h1>
         <div class="div-table">
             <input type="text" v-model="search" v-on:keyup="searchClient()" class="input-search" placeholder="Buscar...">
             <table class="table">
@@ -8,8 +8,8 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Identificación</th>
-                        <th>Teléfono</th>
-                        <th>Tipo Pago</th>
+                        <th class="hide">Teléfono</th>
+                        <th class="hide">Tipo Pago</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -17,11 +17,11 @@
                     <tr v-for="(item) in clients" :key="item.id_client">
                         <td>{{item.name}}</td>
                         <td>{{item.identification}}</td>
-                        <td>{{item.phone}}</td>
-                        <td v-if="1 === item.payment_type">Diario</td>
-                        <td v-else-if="2 === item.payment_type">Semanal</td>
-                        <td v-else-if="3 === item.payment_type">Quincenal</td>
-                        <td v-else-if="4 === item.payment_type">Mensual</td>
+                        <td class="hide">{{item.phone}}</td>
+                        <td class="hide" v-if="1 === item.payment_type">Diario</td>
+                        <td class="hide" v-else-if="2 === item.payment_type">Semanal</td>
+                        <td class="hide" v-else-if="3 === item.payment_type">Quincenal</td>
+                        <td class="hide" v-else-if="4 === item.payment_type">Mensual</td>
                         <td><button class="btn-info" v-on:click="getDetail(item.id_client)">Detalle</button></td>
                     </tr>
                 </tbody>
