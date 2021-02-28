@@ -56,34 +56,30 @@
                 <input v-model="client.phone" type="number" class="input">
                 <label>Préstamo</label>
                 <input v-model="client.loan" type="number" class="input">
-                <label>Plazo</label>
-                <input v-model="client.time_limit" type="number" class="input">
-                <label>Interés</label>
-                <input v-model="client.interest_rate" type="number" class="input">
                 <label>Pago</label>
                 <div class="radios">
-                    <div class="pretty p-icon p-round">
+                    <div class="pretty p-icon p-round" v-on:change="radioChange(client.payment_type)">
                         <input v-model="client.payment_type" type="radio" name="icon_solid" value="1"/>
                         <div class="state p-primary">
                             <i class="icon mdi mdi-check"></i>
                             <label>Diario</label>
                         </div>
                     </div>
-                    <div class="pretty p-icon p-round">
+                    <div class="pretty p-icon p-round" v-on:change="radioChange(client.payment_type)">
                         <input v-model="client.payment_type" type="radio" name="icon_solid" value="2"/>
                         <div class="state p-success">
                             <i class="icon mdi mdi-check"></i>
                             <label>Semanal</label>
                         </div>
                     </div>
-                    <div class="pretty p-icon p-round">
+                    <div class="pretty p-icon p-round" v-on:change="radioChange(client.payment_type)">
                         <input v-model="client.payment_type" type="radio" name="icon_solid" value="3"/>
                         <div class="state p-info">
                             <i class="icon mdi mdi-check"></i>
                             <label>Quincenal</label>
                         </div>
                     </div>
-                    <div class="pretty p-icon p-round">
+                    <div class="pretty p-icon p-round" v-on:change="radioChange(client.payment_type)">
                         <input v-model="client.payment_type" type="radio" name="icon_solid" value="4"/>
                         <div class="state p-info">
                             <i class="icon mdi mdi-check"></i>
@@ -91,6 +87,12 @@
                         </div>
                     </div>
                 </div>
+                <label>Plazo</label>
+                <select class="select" name="select" v-model="client.time_limit">
+                    <option v-for="(item) in options" :key="item.key" :value="item.value">{{item.description}}</option>
+                </select>
+                <label>Interés</label>
+                <input v-model="client.interest_rate" type="number" class="input">
                 <label>Sumar día cobro</label>
                 <input v-model="client.days_added" type="number" class="input">
                 <button class="btn-cancel" v-on:click="closeModal()">Cancelar</button>
@@ -118,12 +120,16 @@ export default {
                 identification: '',
                 phone: '',
                 loan: '',
-                time_limit: '',
+                time_limit: 30,
                 interest_rate: '',
                 payment_type: 1,
                 days_added: ''
             },
-            update: false
+            update: false,
+            options:[
+                {description: '30 días', value: 30},
+                {description: '60 días', value: 60}
+            ]
         }
     },
     created: function () {
@@ -185,6 +191,7 @@ export default {
             };
         },
         addClient(){
+            this.client.time_limit = this.client.time_limit.value;
             const validation = this.validate(this.client);
             if(!validation.success){
                 this.$notify({
@@ -214,6 +221,7 @@ export default {
             this.update = true;
             axios.get(process.env.VUE_APP_URL+`Clients/get/${id_client}`)
             .then((response) => {
+                this.radioChange(response.data.data.payment_type);
                 this.client = response.data.data;
                 this.showModal();
             }).catch((e) => {
@@ -275,6 +283,34 @@ export default {
             }else{
                 res.success = true;
                 return res;
+            }
+        },
+        radioChange(payment_type){
+            switch (Number(payment_type)) {
+                case 1:
+                    this.options = [
+                        {description: '30 días', value: 30},
+                        {description: '60 días', value: 60}
+                    ];
+                    break;
+                case 2:
+                    this.options = [
+                        {description: '4 semanas', value: 30},
+                        {description: '8 semanas', value: 60}
+                    ];
+                    break;
+                case 3:
+                    this.options = [
+                        {description: '2 quincenas', value: 30},
+                        {description: '4 quincenas', value: 60}
+                    ];
+                    break;
+                case 4:
+                    this.options = [
+                        {description: '1 mes', value: 30},
+                        {description: '2 meses', value: 60}
+                    ];
+                    break;
             }
         }
     }
@@ -354,5 +390,10 @@ export default {
 .pagination li:hover:not(.active) {
   background-color: #ddd;
   border-radius: 5px;
+}
+.select{
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    padding: 2px 15px 2px 15px;
 }
 </style>
