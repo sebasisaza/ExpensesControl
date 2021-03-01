@@ -92,6 +92,8 @@ namespace back_end.DataAccess
                 res.data.identification = client.data.identification;
                 res.data.interest_rate = client.data.interest_rate;
                 res.data.loan = client.data.loan;
+                res.data.time_limit = client.data.time_limit;
+                res.data.payment_type = client.data.payment_type;
                 res.data.payment_paid = res.data.payments.Sum(x => x.value);
                 var interest_value = client.data.loan * (client.data.interest_rate / 100);
                 res.data.payment_owed = (client.data.loan + interest_value) - res.data.payments.Sum(x => x.value);

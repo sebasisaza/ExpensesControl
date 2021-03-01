@@ -53,6 +53,10 @@
                 <label>{{clientDetail.interest_rate}}%</label>
                 <label>Teléfono</label>
                 <label>{{clientDetail.phone}}</label>
+                <label>Tipo de Pago</label>
+                <label>{{payment_type_desc[clientDetail.payment_type-1]}}</label>
+                <label>Plazo</label>
+                <label>{{clientDetail.time_limit}} días</label>
                 <label>Valor Cuota</label>
                 <label>{{clientDetail.payment_scheduled}}</label>
                 <label>Valor Prestado</label>
@@ -114,6 +118,7 @@ export default {
                 interest_rate: '',
                 identification: '',
                 phone: '',
+                payment_type: '',
                 loan: '',
                 time_limit: '',
                 payment_scheduled: '',
@@ -123,7 +128,13 @@ export default {
                 id_client: 0,
                 value: '',
                 date: moment().format('yyyy-MM-DD'),
-            }
+            },
+            payment_type_desc: [
+                'Diario',
+                'Semanal',
+                'Quincenal',
+                'Mensual'
+            ]
         }
     },
     created: function () {
