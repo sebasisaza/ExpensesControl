@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <label>Plazo</label>
-                <select class="select" name="select" v-model="client.time_limit">
+                <select class="select" name="select" v-model="time_limit">
                     <option v-for="(item) in options" :key="item.key" :value="item.value">{{item.description}}</option>
                 </select>
                 <label>Interés</label>
@@ -120,7 +120,6 @@ export default {
                 identification: '',
                 phone: '',
                 loan: '',
-                time_limit: 30,
                 interest_rate: '',
                 payment_type: 1,
                 days_added: ''
@@ -129,7 +128,8 @@ export default {
             options:[
                 {description: '30 días', value: 30},
                 {description: '60 días', value: 60}
-            ]
+            ],
+            time_limit: 30
         }
     },
     created: function () {
@@ -184,14 +184,13 @@ export default {
                 identification: '',
                 phone: '',
                 loan: '',
-                time_limit: '',
                 interest_rate: '',
                 payment_type: 1,
                 days_added: ''
             };
         },
         addClient(){
-            this.client.time_limit = this.client.time_limit.value;
+            this.client.time_limit = this.time_limit;
             const validation = this.validate(this.client);
             if(!validation.success){
                 this.$notify({
@@ -229,6 +228,7 @@ export default {
             })
         },
         updateClient(){
+            this.client.time_limit = this.time_limit;
             const validation = this.validate(this.client);
             if(!validation.success){
                 this.$notify({
@@ -271,11 +271,14 @@ export default {
             }else if(client.loan === ''){
                 res.message = 'La prestamo es obligatorio';
                 return res;
+            }else if(client.payment_type === ''){
+                res.message = 'El tipo de pago es obligatorio';
+                return res;
             }else if(client.time_limit === ''){
                 res.message = 'El plazo es obligatorio';
                 return res;
-            }else if(client.payment_type === ''){
-                res.message = 'El tipo de pago es obligatorio';
+            }else if(client.interest_rate === ''){
+                res.message = 'La tasa es obligatoria';
                 return res;
             }else if(client.days_added === ''){
                 res.message = 'Sumar día cobro es obligatorio';

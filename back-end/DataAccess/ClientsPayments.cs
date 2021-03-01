@@ -138,5 +138,43 @@ namespace back_end.DataAccess
             }
             return res;
         }
+
+        public static decimal SumAllPendingPayments()
+        {
+            var res = new decimal();
+            try
+            {
+                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                MySqlTransaction transaction = connection.BeginTransaction();
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                var sql = $@"select sum(payment_pending) from (
+                             select
+                             loan+(loan*(interest_rate/100)) as 'payment_owed',
+                             (select COALESCE(SUM(value),0) from expenses.clients_payments where c.id_client = id_client) as 'payment_paid',
+                             loan+(loan*(interest_rate/100)) - (select COALESCE(SUM(value),0) from expenses.clients_payments where c.id_client = id_client) as 'payment_pending'
+                             from expenses.clients c) da
+                             where da.payment_paid < da.payment_owed";
+
+                command.CommandText = sql;
+                var dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (dr != null)
+                    {
+                        res = Convert.ToDecimal(dr[0]);
+                    }
+                }
+                dr.Close();
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+            }
+            return res;
+        }
     }
 }
