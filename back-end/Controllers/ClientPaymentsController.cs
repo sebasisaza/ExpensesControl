@@ -1,9 +1,11 @@
 ﻿using back_end.Commons.Entities;
 using back_end.DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace back_end.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ClientPaymentsController : ControllerBase

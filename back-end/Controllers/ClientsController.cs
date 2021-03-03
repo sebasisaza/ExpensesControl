@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using back_end.Commons.Entities;
 using back_end.DataAccess;
+using Microsoft.AspNetCore.Authorization;
 
 namespace back_end.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ClientsController : ControllerBase
