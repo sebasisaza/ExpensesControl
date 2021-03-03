@@ -5,12 +5,18 @@ import ExpenseControl from '../views/ExpenseControl.vue'
 import DayCollection from '../views/DayCollection.vue'
 import Clients from '../views/Clients.vue'
 import Payments from '../views/Payments.vue'
+import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/general',
     name: 'General',
     component: General
   },

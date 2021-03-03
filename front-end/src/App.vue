@@ -1,15 +1,5 @@
 <template>
   <div id="app">
-    <header>
-      <h1>Control de Gastos</h1>
-    </header>
-    <nav>
-      <router-link to="/">General</router-link>
-      <router-link to="/expense-control">Control de Gastos</router-link>
-      <!-- <router-link to="/day-collection">Cobros día</router-link> -->
-      <router-link to="/payments">Relación Pagos</router-link>
-      <router-link to="/clients">Clientes</router-link>
-    </nav>
     <router-view/>
     <notifications position="top center"/>
   </div>
@@ -24,16 +14,13 @@
   font-size: 16px;
   font-weight: bolder;
 }
-#app{
+.content{
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 0.2fr 0.2fr 1.6fr;
   grid-template-areas: 'header'
                        'nav'
                        'content';
-}
-.content{
-  grid-area: content;
 }
 header{
   display: flex;

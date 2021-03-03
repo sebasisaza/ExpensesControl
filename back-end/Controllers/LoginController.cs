@@ -18,7 +18,7 @@ namespace back_end.Controllers
 
         [HttpPost]
         [Route("auth")]
-        public ActionResult<string> oauth([FromForm]string username, [FromForm]string password)
+        public ActionResult<string> auth([FromForm]string username, [FromForm]string password)
         {
             var isUserValid = DataAccess.Login.Check(username, password);
 
