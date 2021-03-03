@@ -67,6 +67,9 @@ export default {
     padding: 2px 15px 2px 15px;
     width: 90%;
 }
+.input-login:focus{
+    border: 2px solid #335379;
+}
 .btn-login{
     border: none;
     width: 100%;
