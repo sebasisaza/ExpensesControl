@@ -178,5 +178,39 @@ namespace back_end.DataAccess
             }
             return res;
         }
+
+        public static decimal SumUtilitiesByMonth(string date)
+        {
+            var res = new decimal();
+            try
+            {
+                using MySqlConnection connection = new MySqlConnection("server=localhost; Database=expenses; uid=admin; Pwd=database123;");
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                MySqlTransaction transaction = connection.BeginTransaction();
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                date = Convert.ToDateTime(date).ToString("yyyy-MM", new CultureInfo("es-CO"));
+
+                var sql = $"select sum(value) from expenses.clients_payments where DATE_FORMAT(date, '%Y-%m') between '{date}' and '{date}'";
+
+                command.CommandText = sql;
+                var dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (dr != null)
+                    {
+                        res = Convert.ToDecimal(dr[0]);
+                    }
+                }
+                dr.Close();
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+            }
+            return res;
+        }
     }
 }

@@ -47,7 +47,8 @@ namespace back_end.DataAccess
             res.initial_balance = GetInitialBalance();
             res.expenses_month = Expenses.SumExpensesByMonth(month);
             res.payment_pending = ClientsPayments.SumAllPendingPayments();
-            
+            res.utilities_month = ClientsPayments.SumUtilitiesByMonth(month);
+
             return res;
         }
     }
