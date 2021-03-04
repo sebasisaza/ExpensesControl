@@ -63,7 +63,12 @@ export default {
         getExpenses(){
             const size = 10;
             const page = this.currentPage;
-            axios.get(process.env.VUE_APP_URL+`Expenses/get?size=${size}&page=${page}`)
+            axios.create({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+localStorage.getItem('token')
+                }
+            }).get(process.env.VUE_APP_URL+`Expenses/get?size=${size}&page=${page}`)
             .then((response) => {
                 this.expenses = response.data.data;
                 this.pages = response.data.pages;
@@ -91,7 +96,12 @@ export default {
                 });
             }else{
                 this.expense.value = parseInt(this.expense.value);
-                axios.post(process.env.VUE_APP_URL+'Expenses/create', this.expense)
+                axios.create({
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer '+localStorage.getItem('token')
+                    }
+                }).post(process.env.VUE_APP_URL+'Expenses/create', this.expense)
                 .then((response) => {
                     if(response.data.data)
                     {
@@ -108,7 +118,12 @@ export default {
             }
         },
         deleteExpense(id_expense){
-            axios.get(process.env.VUE_APP_URL+`Expenses/delete/${id_expense}`)
+            axios.create({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+localStorage.getItem('token')
+                }
+            }).get(process.env.VUE_APP_URL+`Expenses/delete/${id_expense}`)
             .then((response) => {
                 if(response.data.data)
                 {

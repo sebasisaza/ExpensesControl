@@ -140,7 +140,12 @@ export default {
             const size = 10;
             const page = this.currentPage;
             const search = this.search;
-            axios.get(process.env.VUE_APP_URL+`Clients/get?size=${size}&page=${page}&search=${search}`)
+            axios.create({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+localStorage.getItem('token')
+                }
+            }).get(process.env.VUE_APP_URL+`Clients/get?size=${size}&page=${page}&search=${search}`)
             .then((response) => {
                 this.clients = response.data.data;
                 this.pages = response.data.pages;
@@ -199,7 +204,12 @@ export default {
                 });
             }else{
                 this.parseObjectClient(this.client);
-                axios.post(process.env.VUE_APP_URL+'Clients/create', this.client)
+                axios.create({
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer '+localStorage.getItem('token')
+                    }
+                }).post(process.env.VUE_APP_URL+'Clients/create', this.client)
                 .then((response) => {
                     if(response.data.data)
                     {
@@ -218,7 +228,12 @@ export default {
         },
         getClient(id_client){
             this.update = true;
-            axios.get(process.env.VUE_APP_URL+`Clients/get/${id_client}`)
+            axios.create({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+localStorage.getItem('token')
+                }
+            }).get(process.env.VUE_APP_URL+`Clients/get/${id_client}`)
             .then((response) => {
                 this.radioChange(response.data.data.payment_type);
                 this.client = response.data.data;
@@ -237,7 +252,12 @@ export default {
                 });
             }else{
                 this.parseObjectClient(this.client);
-                axios.post(process.env.VUE_APP_URL+'Clients/update', this.client)
+                axios.create({
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer '+localStorage.getItem('token')
+                    }
+                }).post(process.env.VUE_APP_URL+'Clients/update', this.client)
                 .then((response) => {
                     if(response.data.data)
                     {

@@ -28,6 +28,7 @@ export default {
 
             axios.post(process.env.VUE_APP_URL+'Login/auth', bodyFormData)
             .then((response) => {
+                this._routerRoot.$options.router.options.store.commit('setAuthentication', true);
                 localStorage.setItem('token', response.data);
                 this.$router.push({ name: 'General' })
             }).catch((e) => {

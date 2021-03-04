@@ -145,7 +145,12 @@ export default {
             const size = 10;
             const page = this.currentPage;
             const search = this.search;
-            axios.get(process.env.VUE_APP_URL+`Clients/get?size=${size}&page=${page}&search=${search}`)
+            axios.create({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+localStorage.getItem('token')
+                }
+            }).get(process.env.VUE_APP_URL+`Clients/get?size=${size}&page=${page}&search=${search}`)
             .then((response) => {
                 this.clients = response.data.data;
                 this.pages = response.data.pages;
@@ -175,7 +180,12 @@ export default {
         getDetail(id_client){
             this.id_client = id_client;
             this.showModal();
-            axios.get(process.env.VUE_APP_URL+`ClientPayments/getByIdClient/${id_client}`)
+            axios.create({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+localStorage.getItem('token')
+                }
+            }).get(process.env.VUE_APP_URL+`ClientPayments/getByIdClient/${id_client}`)
             .then((response) => {
                 this.clientDetail = response.data.data;
             }).catch((e) => {
@@ -193,7 +203,12 @@ export default {
             }else{
                 this.payment.id_client = parseInt(this.id_client);
                 this.payment.value = parseInt(this.payment.value);
-                axios.post(process.env.VUE_APP_URL+'ClientPayments/create', this.payment)
+                axios.create({
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer '+localStorage.getItem('token')
+                    }
+                }).post(process.env.VUE_APP_URL+'ClientPayments/create', this.payment)
                 .then((response) => {
                     if(response.data.data)
                     {

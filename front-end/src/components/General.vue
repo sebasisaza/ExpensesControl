@@ -38,7 +38,13 @@ export default {
     },
     methods:{
         getData(date){
-            axios.get(process.env.VUE_APP_URL+`General/get/${date}`)
+            axios.create({
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+localStorage.getItem('token')
+                }
+            })
+            .get(process.env.VUE_APP_URL+`General/get/${date}`)
             .then((response) => {
                 this.info = response.data;
             }).catch((e) => {
