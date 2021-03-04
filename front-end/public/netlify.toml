@@ -1,5 +1,5 @@
 [[redirects]]
   from = "https://sad-euler-c02860.netlify.app/*"
-  to = "http://sad-euler-c02860.netlify.app/:splat"
+  to = "http://sad-euler-c02860.netlify.app/*"
   status = 301
   force = true
