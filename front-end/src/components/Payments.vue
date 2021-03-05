@@ -86,7 +86,7 @@
                     <tr v-for="(item, i) in clientDetail.payments" :key="item.id_client_payment">
                         <td>{{i+1}}</td>
                         <td>{{item.value}}</td>
-                        <td>{{item.date}}</td>
+                        <td>{{item.date.substring(0,item.date.length-9)}}</td>
                     </tr>
                 </tbody>
                 <tbody v-else>
