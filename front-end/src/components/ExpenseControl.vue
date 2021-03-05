@@ -28,8 +28,14 @@
                         <td><button v-on:click="deleteExpense(item.id_expense)" class="btn-danger">Borrar</button></td>
                     </tr>
                 </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td colspan="4">No hay registros...</td>
+                    </tr>
+                </tbody>
             </table>
             <paginate
+                 v-if="expenses.length > 0"
                 :page-count="pages"
                 :page-range="currentPage"
                 :click-handler="pageChange"

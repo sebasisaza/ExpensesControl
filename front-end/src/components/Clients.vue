@@ -33,6 +33,7 @@
                 </tbody>
             </table>
             <paginate
+                v-if="clients.length > 0"
                 :page-count="pages"
                 :page-range="currentPage"
                 :click-handler="pageChange"
